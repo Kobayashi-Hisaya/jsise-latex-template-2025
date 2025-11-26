@@ -53,19 +53,24 @@
 \newcommand{\afil}[1]{\textsuperscript{#1}}
 \newcommand{\Afil}[1]{#1}
 
+% 章番号にピリオドを追加（節・項は二重ピリオドを防ぐ）
+\renewcommand{\thesection}{\arabic{section}.}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
 \usepackage{titlesec}
 \titleformat*{\section}{\mslarge\bfseries}
 \titleformat*{\subsection}{\msnormalsize\bfseries}
-\titleformat*{\subsubsection}{\msnormalsize\bfseries}
+\titleformat*{\subsubsection}{\msnormalsize}
 \titlespacing*{\section}{0pt}{3.2ex plus 1ex minus .2ex}{0.8ex plus .2ex}
 \titlespacing*{\subsection}{0pt}{2ex plus 1ex minus .2ex}{0.5ex plus .2ex}
-\titlespacing*{\subsubsection}{0pt}{2ex plus 1ex minus .2ex}{0.5ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{.2ex plus .2ex minus .1ex}{.2ex plus .2ex}
 
 \usepackage{indentfirst}
 \parindent = 1zw
 
 \twocolumn
-\setlength{\columnsep}{28pt}
+\setlength{\columnsep}{10mm}  % 28.35pt ≈ 10mm
 
 %\bibliographystyle{jplain}
 \makeatletter
@@ -81,4 +86,35 @@
   \setlength{\itemsep}{\bibparskip}%
   \mssmall%
 }
+\makeatother
+
+\makeatletter
+\def\mojiparline#1{
+    \newcounter{mpl}
+    \setcounter{mpl}{#1}
+    \@tempdima=\linewidth
+    \advance\@tempdima by-\value{mpl}zw
+    \addtocounter{mpl}{-1}
+    \divide\@tempdima by \value{mpl}
+    \advance\kanjiskip by\@tempdima
+    \advance\parindent by\@tempdima
+}
+\makeatother
+\def\linesparpage#1{
+    \baselineskip=\textheight
+    \divide\baselineskip by #1
+}
+
+% 図表タイトルをゴシック系10ptに設定
+\makeatletter
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\msnormalsize\bfseries #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\msnormalsize\bfseries #1: #2\par}
+  \else
+    \global \@minipagefalse
+    \hb@xt@\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
 \makeatother

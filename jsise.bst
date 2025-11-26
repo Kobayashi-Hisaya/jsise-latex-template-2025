@@ -1062,7 +1062,7 @@ FUNCTION {format.bvolume}
         {
           is.kanji.entry
             { "第" volume * "巻" * }
-            { "vol." volume * }
+            { "Vol." volume * }
           if$
         }
       if$
@@ -1081,7 +1081,7 @@ FUNCTION {format.number.series}
         {
           number is.kanji.str$
             { number }
-            {"no." number * }
+            {"No." number * }
           if$
           series empty$
             { "there's a number but no series in " cite$ * warning$ }
@@ -1173,7 +1173,7 @@ FUNCTION {format.vol.num.pages}
           volume
         }
         {
-          "vol." volume *
+          "Vol." volume *
         }
       if$
       
@@ -1215,15 +1215,15 @@ FUNCTION {format.vol.num.pages}
     'skip$
     {
       volume empty$
-        { "there's a number but no volume in " cite$ * warning$ 
-          "vol.\textbullet\textbullet, " *
+        { "there's a number but no volume in " cite$ * warning$
+          "Vol.\textbullet\textbullet, " *
         }
         'skip$
       if$
       
       number is.kanji.str$
         { number * }
-        { "no." number * * }
+        { "No." number * * }
       if$
 %      volume empty$
 %        { "there's a number but no volume in " cite$ * warning$ }
@@ -1489,7 +1489,7 @@ FUNCTION {format.book.crossref}
         {
           is.kanji.entry
             { "第" volume * "巻" * }
-            { "vol." volume tie.or.space.connect " of " * }
+            { "Vol." volume tie.or.space.connect " of " * }
           if$
         }
       if$
